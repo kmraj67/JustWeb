@@ -7,17 +7,17 @@ import Users from './Components/Users';
 import Blogs from './Components/Blogs';
 
 class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route path={"/users"} component={Users} />
-          <Route path={"/blogs"} component={Blogs} />
-        </Switch>
-      </Router>
-    );
-  };
+    render() {
+        return (
+            <Router>
+                <Switch>
+                    <Route exact path="/" component={Dashboard} />
+                    <Route path={"/users"} component={Users} />
+                    <Route path={"/blogs"} component={Blogs} />
+                </Switch>
+            </Router>
+        );
+    };
 };
 
 export default App;

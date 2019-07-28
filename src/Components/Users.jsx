@@ -7,6 +7,8 @@ import Footer from './Layout/Footer';
 import Breadcrumb from './Layout/Breadcrumb';
 import * as qs from 'query-string';
 
+export const { apiBaseUrl } = window;
+
 export default class Users extends Component {
     
     constructor(props) {
@@ -16,12 +18,13 @@ export default class Users extends Component {
         this.state = {
             users: [],
             pageCount: 0,
-            url: 'http://apis.justapp.com/api/v1/users',
-            offset: (typeof parsed.page !== 'undefined') ? parsed.page : 1
+            url: apiBaseUrl + 'users',
+            offset: (typeof parsed.page !== 'undefined') ? parsed.page : 0,
+            counter: 0
         }
     }
     
-    componentWillMount() {
+    componentDidMount() {
         const apiUrl = this.state.url + '?page='+this.state.offset;
         this.fetchUsers(apiUrl);
     }
@@ -61,18 +64,14 @@ export default class Users extends Component {
     }
     
     handlePageClick = (data) => {
-//        console.log(e);
-        
         let selected = data.selected;
-        //$(".pagination").click(function(){ selected = selected + 1; });
         this.setState({offset: selected}, () => {
-          this.fetchUsers(this.state.url+'?page=' + selected);
-          this.forceUpdate();
-          this.props.history.push('/users?page=' + selected);
+            this.fetchUsers(this.state.url+'?page=' + (selected + 1));
+            this.props.history.push('/users?page=' + selected);
         });
     }
     
-    userPagination() {        
+    userPagination() { 
         if(this.state.users.length >= 1) {
             return (
                 <nav aria-label="Page navigation example">
